@@ -1,0 +1,57 @@
+On R2, create a named standard access list called:
+
+    Permit the host at IP address 192.168.10.10.
+    Use the name PERMIT-ADMIN.
+    After configuration, return to global configuration mode.
+
+R2(config)#ip access-list standard PERMIT-ADMIN
+
+R2(config-std-nacl)#permit 192.168.10.10
+
+R2(config-std-nacl)#exit
+
+Enhance the login process using the following instructions:
+
+    Disable login for 15 seconds if more than 5 failed logins are attempted within 60 seconds.
+    The host specified in the PERMIT-ADMIN ACL should never be denied login access.
+    Specify a login delay of 10 seconds between failed login attempts.
+    Generate Syslog messages for successful login attempts.
+    Generate Syslog messages for failed login attempts.
+    After configuration, exit global configuration mode.
+
+R2(config)#login block-for 15 attempts 5 within 60
+
+R2(config)#login quiet-mode access-class PERMIT-ADMIN
+
+R2(config)#login delay 10
+
+R2(config)#login on-success log
+
+R2(config)#login on-failure log
+
+R2(config)#exit
+
+R2#  
+*Nov 30 16:14:32.495: %SYS-5-CONFIG_I: Configured from console by console
+
+Display the login settings.
+R2#show login
+
+    A login delay of 10 seconds is applied.
+    Quiet-Mode access list PERMIT-ADMIN is applied.
+    All successful login is logged.
+    All failed login is logged.
+    
+    Router enabled to watch for login Attacks.
+    If more than 5 login failures occur in 60 seconds or less,
+    logins will be disabled for 15 seconds.
+    
+    Router presently in Normal-Mode.
+    Current Watch Window
+    Time remaining: 15 seconds.
+    Login failures for current window: 0.
+    Total login failures: 0.  
+  
+R2#
+
+You successfully secured enhanced login security on R2.

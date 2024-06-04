@@ -1,2 +1,6 @@
 # network-security
-Network Security Course: https://lms.netacad.com/course/view.php?id=2232403
+Cisco Network Security Course: CTA24_CCNAS_GL122
+
+Notes are written in CherryTree
+
+All labs and Packet Tracer files uploaded in order

@@ -1,0 +1,49 @@
+Encrypt all passwords
+R2(config)#service password-encryption
+
+Set the minimum password length to 10 characters.
+R2(config)#security passwords min-length 10
+
+Create the user account JR-ADMIN with a secret password of cisco12345 using the SCRYPT hashing algorithm.
+R2(config)#username JR-ADMIN algorithm-type scrypt secret cisco12345
+
+Create the user account ADMIN with a secret password of cisco54321 using the SCRYPT hashing algorithm.
+R2(config)#username ADMIN algorithm-type scrypt secret cisco54321
+
+Configure the console line using the following instructions:
+
+    Set the executive timeout to 3 minutes on the console line.
+    Set the console line to use the local database for authentication.
+    After configuration, exit line configuration mode.
+
+R2(config)#line console 0
+
+R2(config-line)#exec-timeout 3 0
+
+R2(config-line)#login local
+
+R2(config-line)#exit
+
+Configure the vty lines using the following instructions:
+
+    Set the executive timeout to 3 minutes on the VTY lines.
+    Set the VTY lines to use the local database for authentication.
+
+R2(config)#line vty 0 4
+
+R2(config-line)#exec-timeout 3 0
+
+R2(config-line)#login local
+
+Return to privileged EXEC mode. Display the running-config and filter it to include only the lines with username to verify the user account configurations.
+R2(config-line)#end
+
+*Mar 3 08:25:09.868: %SYS-5-CONFIG_I: Configured from console by console
+
+R2#show running-config | include username
+
+username JR-ADMIN secret 9 $9$IznnuC6.5I0YmE$e8kvyaOBRuem54LJIhdAom8pQw3xGkGPeoEbNYU9BnY  
+username ADMIN secret 9 $9$.9hhYsuBDAaF3.$k5fhqvneSfOa.0ms89TjQX1ant9W3l09zLJjAHAERaU
+R2#
+
+You successfully secured administrative access on R2.
